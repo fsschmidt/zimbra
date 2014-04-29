@@ -1,0 +1,7 @@
+#/bin/bash
+# SCRIPT PARA CRIAR LISTAS DE DISTRIBUIÇÃO ATRAVES DE UM ARQUIVO
+#OBTIDO COM zmprov gadl 
+for i in $(cat /tmp/lista.txt); do
+echo "Criando lista: $i"
+/opt/zimbra/bin/zmprov zmprov cdl $i
+done
