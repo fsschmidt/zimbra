@@ -1,0 +1,22 @@
+#!/bin/bash
+# FABIO S. SCHMIDT
+# SCRIPT PARA INCLUIR OS MEMBROS NA LISTA DE DISTRIBUIÇÃO
+# BESEADO EM : http://laurobmb.wordpress.com/2012/05/25/backup-and-restore-of-list-of-distribution-server-zimbra/
+# TO DO: MANTER A DESCRIÇÃO DA LISTA
+cont1=0
+cont2=0
+#OBTIDO COM ZMPROV GADL
+for i in $(cat /tmp/lista.txt); do
+/opt/zimbra/bin/zmprov gdl $i | grep ForwardingAddress | awk '{print $2}' > /tmp/distribuicao.txt
+cont1=$((cont1+1))
+echo "####### $cont1 $i"
+cont2=0
+for j in $(cat /tmp/distribuicao.txt); do
+cont2=$((cont2+1))
+echo -n "$cont2"
+#ssh root@172.30.0.5 ‘/opt/zimbra/bin/zmprov adlm $i $j’
+echo "/opt/zimbra/bin/zmprov adlm $i $j" >> /tmp/script.sh
+done
+echo " "
+echo " " >> /tmp/distribuicao.txt
+done
