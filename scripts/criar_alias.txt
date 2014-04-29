@@ -1,0 +1,21 @@
+#!/bin/bash
+#FABIO S. SCHMIDT
+#SCRIPT PARA CRIAR NOMES ALTERNATIVOS ATRAVES DE UM ARQUIVO
+#BASEADO EM: http://laurobmb.wordpress.com/2012/05/25/backup-and-restore-of-list-of-distribution-server-zimbra/
+cont1=0
+cont2=0
+# RELACAO OBTIDA ATRAVES DO ZMPROV GAA
+for i in $(cat /tmp/contas.txt); do
+/opt/zimbra/bin/zmprov ga $i | grep MailAlias | awk '{print $2}' > /tmp/relacao_alias.txt
+cont1=$((cont1+1))
+echo "####### $cont1 $i"
+cont2=0
+for j in $(cat /tmp/relacao_alias.txt); do
+cont2=$((cont2+1))
+echo -n "$cont2"
+#GERA O SCRIPT_ALIAS.SH QUE DEVE SER EXECUTADO PARA CRIAR OS NOMES ALTERNATIVOS
+echo "/opt/zimbra/bin/zmprov aaa $i $j" >> /tmp/script_alias.sh
+done
+echo " "
+echo " " >> /tmp/distribuicao.txt
+done
