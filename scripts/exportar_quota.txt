@@ -1,0 +1,23 @@
+#!/bin/bash
+# FABIO S. SCHMIDT
+# EXPORTAR QUOTAS DOS USUARIOS E CRIAR SCRIPT PARA DEFINIR
+# BASEADO EM: EM : http://laurobmb.wordpress.com/2012/05/25/backup-and-restore-of-list-of-distribution-server-zimbra/
+# TODO: PERMITIR TRATAR SOMENTE AS EXCECOES DE CLASSES DE SERVICOS
+cont1=0
+cont2=0
+#OBTIDO COM ZMPROV -l gaa
+for i in $(cat /tmp/quotas/contas_0105.txt); do
+# OBTEM A QUOTA DE CADA CONTA
+zmprov ga $i | grep zimbraMailQuota | awk '{print $2}' > /tmp/quotas/quotas.txt
+cont1=$((cont1+1))
+echo "####### $cont1 $i"
+cont2=0
+for j in $(cat /tmp/quotas/quotas.txt); do
+cont2=$((cont2+1))
+echo -n "$cont2"
+echo "QUOTA DA CONTA $i OBTIDA: $j" >> /tmp/quotas/relacao_obtida.txt
+echo "zmprov ma $i zimbraMailQuota $j" >> /tmp/quotas/script_quota.sh
+done
+echo " "
+echo " " >> /tmp/quotas/script_quota.sh
+done
