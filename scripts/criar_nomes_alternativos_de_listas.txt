@@ -1,0 +1,27 @@
+#!/bin/bash
+#FABIO S. SCHMIDT
+#SCRIPT PARA CRIAR NOMES ALTERNATIVOS DAS LISTRA DE DISTRIBUICAO
+#BASEADO EM: http://laurobmb.wordpress.com/2012/05/25/backup-and-restore-of-list-of-distribution-server-zimbra/
+cont1=0
+cont2=0
+# OBTIDO ATRAVES DO ZMPROV GADL
+for i in $(cat relacao_listas.txt); do
+# OBTEM OS NOMES ALTERNATIVOS DE CADA LISTA
+zmprov gdl $i | grep MailAlias | awk '{print $2}' > NOMES_ALTERNATIVOS.txt
+cont1=$((cont1+1))
+echo "####### $cont1 $i"
+cont2=0
+for j in $(cat NOMES_ALTERNATIVOS.txt); do
+cont2=$((cont2+1))
+echo -n "$cont2"
+#O ZIMBRA MANTEM O NOME DA LISTA TAMBEM NO MAILALIAS, PORTANTO ESTE IF IGNORA ESTAS ENTRADAS
+        if [ $i == $j ]
+        then
+        echo ""
+        else
+        echo "/opt/zimbra/bin/zmprov adla $i $j" >> scriptteste.sh
+        fi
+done
+echo " "
+echo " " >> NOMES_ALTERNATIVOS.txt
+done
