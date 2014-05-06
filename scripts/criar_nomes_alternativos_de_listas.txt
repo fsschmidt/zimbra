@@ -15,7 +15,7 @@ for j in $(cat NOMES_ALTERNATIVOS.txt); do
 cont2=$((cont2+1))
 echo -n "$cont2"
 #O ZIMBRA MANTEM O NOME DA LISTA TAMBEM NO MAILALIAS, PORTANTO ESTE IF IGNORA ESTAS ENTRADAS
-        if [ $i "= $j ]
+        if [ $i != $j ]
         then
         echo "/opt/zimbra/bin/zmprov adla $i $j" >> scriptteste.sh
         fi
