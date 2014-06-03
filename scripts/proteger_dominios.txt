@@ -1,0 +1,31 @@
+--- Proteger e-mails forjados -----
+
+Executar script proteger_dominios.sh
+
+/opt/zimbra/conf/zmconfigd/smtpd_sender_restrictions.cf
+
+incluir linha: %%contains VAR:zimbraServiceEnabled antivirus^ check_sender_access hash:/opt/zimbra/postfix/conf/meus_dominios%%
+
+após: permit_sasl_authenticated%%
+
+--- proteger_dominios.sh --- 
+
+#!/bin/bash
+#FABIO S. SCHMIDT
+#CRIAR ARQUIVO PARA BLOQUEAR OS DOMINIOS LOCAIS PARA EVITAR E-MAILS FORJADOS
+
+CONF_DIR="/opt/zimbra/postfix/conf"
+
+#OBTEM RELACAO DE TODOS DOMINIOS DO SISTEMA
+  for i in $(zmprov gad)
+
+     do
+     echo "Domínio encontrado: $i"
+     #Cria as entradas que descartam os e-mails forjados
+     echo "$i DISCARD Uso nao autorizado do dominio local" >> $CONF_DIR/meus_dominios
+
+     #Criar o arquivo HASH que será lido pelo postfix
+     postmap $CONF_DIR/meus_dominios
+
+done
+
