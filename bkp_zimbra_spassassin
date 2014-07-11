@@ -1,0 +1,14 @@
+Muitas vezes é necessário migrar o Zimbra para uma nova instalação, seja por ajustes de infraestrutura ou atualização da solução. Como é de conhecimento, uma solução anti-spam passa a obter mais acertos (spam ou ham) conforme sua base é populada.
+
+Seguem os passos para copiar também a base de SPAM do SpamAssassin do Zimbra para outro servidor:
+
+No servidor antigo, como usuário Zimbra, execute:
+
+$ /opt/zimbra/libexec/sa-learn -p /opt/zimbra/conf/salocal.cf.in –dbpath /opt/zimbra/data/amavisd/.spamassassin/ –siteconfigpath /opt/zimbra/conf/spamassassin –backup > /CAMINHO/ARQUIVO
+
+Copie o arquivo para o servidor novo e execute, também como usuário zimbra:
+
+ $ /opt/zimbra/libexec/sa-learn -p /opt/zimbra/conf/salocal.cf.in –dbpath /opt/zimbra/data/amavisd/.spamassassin/ –siteconfigpath /opt/zimbra/conf/spamassassin –restore /CAMINHO/ARQUIVO
+ 
+ 
+ Publicado em: http://respirandolinux.wordpress.com/2014/07/11/zimbra-copiar-a-base-de-spam-para-outro-servidor/
