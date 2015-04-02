@@ -5,6 +5,10 @@
 
 DEST="/tmp"
 
+#DEFININDO VARIAVEIS DE AMBIENTE DO ZIMBRA
+source ~/bin/zmshutil
+zmsetvars
+
 EXPORTAR=`mysql -u root --password=$mysql_root_password --socket=$mysql_socket -N information_schema -e "SELECT DISTINCT(TABLE_SCHEMA) FROM tables WHERE TABLE_SCHEMA LIKE 'mboxgroup%'"`
 
 #EXPORTAR TABELA ZIMBRA
