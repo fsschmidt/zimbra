@@ -34,11 +34,12 @@ ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_pa
 echo "EXPORTANDO NOMES ALTERNATIVOS"
 ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password  -b '' -LLL "(objectclass=zimbraAlias)" uid | grep ^uid | awk '{print $2}' > $DEST/lista_contas.ldiff
 
-for MAIL in $(cat lista_contas.ldiff);
+for MAIL in $(cat $DEST/lista_contas.ldiff);
 	do 
       ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(&(uid=$MAIL)(objectclass=zimbraAlias))" > $DEST/alias/$MAIL.ldiff 
 	cat $DEST/alias/*.ldiff > $DEST/APELIDOS.ldiff
 done 
 
 #EXPORTANDO LISTAS DE DISTRIBUICAO
+echo "EXPORTANDO LISTAS DE DISTRIBUICAO"
 ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(objectclass=zimbraDistributionList)" > $DEST/LISTAS.ldiff
