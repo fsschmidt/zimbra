@@ -1,0 +1,1 @@
+mysql --user=root --password=$mysql_root_password zimbra -e 'show databases'  | grep mboxgroup* | xargs -I "@@" mysql --user=root --password=$mysql_root_password zimbra -e "DROP database \`@@\`"
