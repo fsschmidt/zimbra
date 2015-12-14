@@ -1,17 +1,23 @@
 #!/bin/bash
 #FABIO S. SCHMIDT
-#SCRIPT PARA CRIAR NOMES ALTERNATIVOS ZIMBRA ATRAVES DE CONSULTA DE ATRIBUTO EM UMA BASE OPENLDAP
-#14/12/15
+#SCRIPT PARA CRIAR NOMES ALTERNATIVOS ATRAVES DE UM ARQUIVO
 #BASEADO EM: http://laurobmb.wordpress.com/2012/05/25/backup-and-restore-of-list-of-distribution-server-zimbra/
+
+##
+DN="cn=admin,dc=base"
+BASE="dc=base"
+##
+
 cont1=0
 cont2=0
 # RELACAO OBTIDA ATRAVES DO ZMPROV GAA
 for i in $(cat /tmp/contas.txt); do
-ldapsearch -b "dc=base" -x  -D "cn=admin,dc=base" -h localhost -w SENHA -LLL uid=$i mailAlternateAddress | grep mailAlternateAddress: | awk '{print $2}' > /tmp/relacao_alias.txt
+ldapsearch -b $BASE -x -D $DN -h localhost -w SENHA -LLL mail=$i mailAlternateAddress | grep mailAlternateAddress: | awk '{print $2}' > /tmp/alia
+s.txt
 cont1=$((cont1+1))
 echo "####### $cont1 $i"
 cont2=0
-for j in $(cat /tmp/relacao_alias.txt); do
+for j in $(cat /tmp/alias.txt); do
 cont2=$((cont2+1))
 echo -n "$cont2"
 echo $i $j
