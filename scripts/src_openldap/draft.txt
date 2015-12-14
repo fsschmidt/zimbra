@@ -1,0 +1,41 @@
+#PROVISIONAMENTO AUTOMÁTICO EAGER
+
+zmprov md dominio zimbraAutoProvMode EAGER
+zmprov md dominio zimbraAutoProvBatchSize 250
+zmprov ms $(zmhostname) +zimbraAutoProvPollingInterval 300
+s
+zmprov ms $(zmhostname) +zimbraAutoProvScheduledDomains dominio
+zmprov md dominio zimbraAutoProvLdapAdminBindDn cn=admin,dc=base
+zmprov md dominio zimbraAutoProvLdapURL "ldap://192.168.100.2:389"
+zmprov md dominio zimbraAutoProvLdapAdminBindPassword "*****"
+zmprov md dominio zimbraAutoProvLdapSearchBase "dc=base"
+zmprov md dominio zimbraAutoProvLdapSearchFilter "(cn=*)" 
+zmprov md dominio zimbraAutoProvAccountNameMap uid
+zmprov md dominio +zimbraAutoProvAttrMap sn=cn
+
+When an account is created, the account name (characters before @) is mapped from a user attribute on the external directory that you define in zimbraAutoProvAccountNameMap. Other account information, such as first and last name, phone numbers, address, is populated from the attributes mapped from the external directory based onzimbraAutoProvAttrMap. Review the external directory’s attributes to determine which ones should be mapped to a zimbra attribute.
+
+
+*
+If set to 0 when server starts up, the auto provision thread will not start.
+*
+If changed from a non-0 value to 0 while server is running, the auto provision thread will be shutdown.
+*
+If changed from 0 to a non-0 value while server is running, the auto provision thread will be started.
+
+
+
+https://wiki.zimbra.com/wiki/Zimbra_LDAP_Schema_8.6
+
+https://www.zimbra.com/docs/ne/8.6.0/administration_guide/wwhelp/wwhimpl/js/html/wwhelp.htm#href=860_admin_ne.Configure_Eager_Mode_Auto-Provisioning.html
+
+https://www.zimbra.com/docs/ne/8.6.0/administration_guide/wwhelp/wwhimpl/js/html/wwhelp.htm#href=860_admin_ne.Auto-Provision_Attributes.html
+
+https://www.zimbra.com/docs/ne/8.6.0/administration_guide/wwhelp/wwhimpl/js/html/wwhelp.htm#href=860_admin_ne.Auto_Provisioning_New_Accounts_from_External_LDAP.html
+
+https://wiki.zimbra.com/wiki/LDAP_Mapped_Attributes
+
+https://wiki.zimbra.com/wiki/Zimbra_Directory_Service_(LDAP)
+
+https://wiki.zimbra.com/wiki/Zimbra_Attributes_ZCS8
+
