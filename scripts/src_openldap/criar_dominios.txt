@@ -1,0 +1,8 @@
+grep -i associateddomain ldif_final.ldif | awk '{ print $2 }' > dominios.txt
+
+#!/bin/bash
+for OUTPUT in $(cat dominios.txt)
+	do
+		echo "Criando dominio: $OUTPUT"
+		zmprov cd $OUTPUT
+done
