@@ -1,28 +1,30 @@
 #!/bin/bash
-#FABIO S. SCHMIDT
-#SCRIPT PARA CRIAR NOMES ALTERNATIVOS ATRAVES DE UM ARQUIVO
-#BASEADO EM: http://laurobmb.wordpress.com/2012/05/25/backup-and-restore-of-list-of-distribution-server-zimbra/
+#FABIO SOARES SCHMIDT
+#15/12/2015
+#SCRIPT PARA CRIAR RELACAO DE CRIACAO DE ALIASES DO ZIMBRA A PARTIR DE CONSULTA DO ATRIBUTO
+#mailAlternateAddress EM UMA BASE OPENLDAP
 
 ##
 DN="cn=admin,dc=base"
 BASE="dc=base"
+DOMINIO="dominio.com.br"
+LDAPPW="123"
 ##
 
 cont1=0
 cont2=0
 # RELACAO OBTIDA ATRAVES DO ZMPROV GAA
 for i in $(cat /tmp/contas.txt); do
-ldapsearch -b $BASE -x -D $DN -h localhost -w SENHA -LLL mail=$i mailAlternateAddress | grep mailAlternateAddress: | awk '{print $2}' > /tmp/alia
-s.txt
+ldapsearch -b $BASE -x -D $DN -h localhost -w $LDAPPW -LLL uid=$i mailAlternateAddress > /tmp/trash/alias-$i.txt
 cont1=$((cont1+1))
 echo "####### $cont1 $i"
 cont2=0
-for j in $(cat /tmp/alias.txt); do
+for j in $(cat /tmp/trash/alias-$i.txt | tail -n 2 | awk '{print $2}'); do
 cont2=$((cont2+1))
 echo -n "$cont2"
 echo $i $j
 #GERA O SCRIPT_ALIAS.SH QUE DEVE SER EXECUTADO PARA CRIAR OS NOMES ALTERNATIVOS
-echo "/opt/zimbra/bin/zmprov aaa $i $j" >> /tmp/script_alias.sh
+echo "/opt/zimbra/bin/zmprov aaa $i@$DOMINIO $j" >> /tmp/script_alias.sh
 done
 echo " "
 echo " " >> /tmp/relacao_alias.txt
