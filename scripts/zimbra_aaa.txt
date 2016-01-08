@@ -1,0 +1,47 @@
+#!/bin/bash
+# Licensed under GPL, by Ace Suares 2015-12-25
+# only run this script as user 'zimbra'
+
+FILE=/opt/zimbra/acescripts/already_provisioned
+
+for user in `zmprov -l gaa`
+ do
+  if grep -q $user $FILE
+   then
+    # the user is already provisioned, don't wast time...
+    echo "User $user already provisioned..."
+   else
+    # see if this is a valid email, in that case we are done
+    in_ad=`ldapsearch -LLL -D "ADMINISTRATOR_CN" -b 'SEARCH_BASE' -h AD_SERVER -p 3268 -w 'PASSWORD' "(mail=$user)" mail`
+    if [[ !  -z  $in_ad  ]]
+     then
+      echo "User $user IS an existing email address in AD. Skipping..."
+      echo $user >> $FILE
+     else
+      echo "User $user IS NOT an existing email address in AD..."
+      # extract the part before the @
+      uid=${user%@*}
+      # extract the email addres from the mail field in AD
+      ad_email=`ldapsearch -LLL -D "ADMINISTRATOR_CN" -b 'SEARCH_BASE' -h AD_SERVER -p 3268 -w 'PASSWORD' "(samaccountname=$uid)" mail | grep '^mail: ' | cut -d" " -f2`
+      if [[ -z  $ad_email  ]]
+       then
+        # the AD didn't contain an email addres or the uid doesn't exist.
+        echo "User $uid IS NOT an existing AD user OR has no email address. Skipping..."
+       # add the user to the file so it will be skipped next time
+        echo $user >> $FILE
+       else
+        # rename the account from uid@domain to email@domain
+        zmprov ra $user $ad_email
+        # add alias uid@domain to email@domain
+        zmprov aaa $ad_email $user
+        echo "--> User $user renamed to $ad_email..."
+       # add the user to the file so it will be skipped next time
+        echo $ad_email >> $FILE
+      fi
+    fi
+  fi          
+ done 
+
+
+
+# This is just because the email adress first.last@domain differs form the uid in the AD (just lastname).
