@@ -1,0 +1,33 @@
+#!/bin/bash
+# Script para criação de contas no Zimbra
+
+matricula=45678900
+mail_alternativo=conta@dominio.com.br
+nome_completo="Conta Pelo Script"
+primeiro_nome="Conta"
+ultimo_nome="Pelo script"
+mail=conta@dominio2.com.br
+telefone="(XX) XXXX-XXX"
+
+
+## Criação da conta
+
+        ssh zimbra@192.168.56.100 "zmprov ca $mail_alternativo \"\" cn \"$nome_completo\" displayName \"$nome_completo\" givenName \"$primeiro_nome\" sn \"$ultimo_nome\""
+        #Se o campo telefone nao for nulo, insere a informacao na conta
+        if [ ! -z "$telefone" ]
+        then
+        ssh zimbra@192.168.56.100 "zmprov ma $mail_alternativo telephoneNumber \"$telefone\""
+        fi
+
+## Criação dos nomes alternativos
+
+        # E-mail unidade.aer.mil.br
+        ssh zimbra@192.168.56.100 "zmprov aaa $mail_alternativo \"$mail\""
+
+        # Matricula
+        ssh zimbra@192.168.56.100 "zmprov aaa $mail_alternativo \"$matricula@dominio.com.br\""
+
+
+## Criação da identidade com o e-mail da unidade
+
+        ssh zimbra@192.168.56.100 "zmprov cid $mail_alternativo PersonagemAlternativo zimbraPrefFromAddress \"$mail\" zimbraPrefFromDisplay \"$nome_completo\""
