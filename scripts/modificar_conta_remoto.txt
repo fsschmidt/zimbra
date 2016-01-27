@@ -1,0 +1,70 @@
+###########Caso #1 – Modificação do nome da conta
+
+## Renomeação da conta:
+
+	 ssh zimbra@192.168.56.100  "zmprov ra $mail_alternativo_OLD \"$mail_alternativo_NEW\""
+
+## Remoção do novo alternativo:
+
+	 ssh zimbra@192.168.56.100  "zmprov raa $mail_alternativo_NEW \"$mail_OLD\""
+
+## Criação do novo nome alternativo:
+
+	 ssh zimbra@192.168.56.100  "zmprov aaa $mail_alternativo_NEW \"$mail_NEW\""
+
+## Modificação da identidade:
+
+	 ssh zimbra@192.168.56.100  "zmprov mid $mail_alternativo_NEW PersonagemOM zimbraPrefFromAddress \"$mail_NEW\""
+
+
+#Caso #2 – Modificação da OM da conta
+
+## Remoção do email alternativo:
+
+	ssh zimbra@192.168.56.100 "zmprov raa $mail_alternativo_NEW \"$mail_OLD\"" 
+
+## Criação do novo nome alternativo:
+
+	ssh zimbra@192.168.56.100 "zmprov aaa $mail_alternativo_NEW \"$mail_NEW\""
+
+## Modificação da identidade:
+
+	ssh zimbra@192.168.56.100 "zmprov mid $mail_alternativo_NEW PersonagemOM zimbraPrefFromAddress \"$mail_NEW\""
+
+
+#Caso #3 – Modificação do nome de exibição
+
+###### ATUALIZA NOME COMPLETO #######################################
+
+	ssh zimbra@192.168.56.100 "zmprov ma $mail_alternativo_NEW displayName \"$nome_completo_NEW\""
+	ssh zimbra@192.168.56.100 "zmprov ma mail_alternativo_NEW cn \"$nome_completo_NEW\""
+             
+
+###### ATUALIZA PRIMEIRO NOME #######################################
+
+
+ssh zimbra@192.168.56.100 "zmprov ma $mail_alternativo_NEW displayName \"$nome_completo_NEW\""
+
+
+###### ATUALIZA ULTIMO NOME ##########################################
+
+
+ssh zimbra@192.168.56.100 "zmprov ma $mail_alternativo_NEW sn \"$ultimo_nome_NEW\""
+
+###### ATUALIZA PRIMEIRO E ULTIMO NOME  ###############################
+
+ssh zimbra@192.168.56.100 "zmprov ma $mail_alternativo_NEW givenName \"$primeiro_nome_NEW\""
+ssh zimbra@192.168.56.100 "zmprov ma $mail_alternativo_NEW sn \"$ultimo_nome_NEW\""
+
+
+#Caso #4 – Modificação do Telefone
+
+################## ATUALIZA TELEFONE #########################################
+
+
+ssh zimbra@192.168.56.100 "zmprov ma $mail_alternativo telephoneNumber \"$telefone_NEW\""
+                      
+################################################################################
+
+
+
