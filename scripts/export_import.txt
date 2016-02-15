@@ -1,0 +1,120 @@
+Para a migração das caixas postais, foi homologado o procedimento de exportar os Metadados e Store das caixas postais, tendo como objetivo evitar o sincronismo dos clientes externos, como Thunderbird, Outlook e dispositivos móveis. 
+Para executar esse procedimentos, os seguintes passos devem ser seguidos:
+
+1. PARAR TODOS OS SERVIÇOS DO ZIMBRA
+
+$ zmcontrol stop
+
+2. INICIAR O MYSQL PARA EXPORTAR OS METADADOS
+
+$ mysql.server start
+
+3. EXPORTAR BASES ZIMBRA E MBOXGROUPS (onde as caixas postais são agrupadas):
+
+$	source ~/bin/zmshutil
+
+$	zmsetvars
+
+$	/opt/zimbra/mysql/bin/mysqldump --user=root --password=$mysql_root_password --socket=$mysql_socket   --compatible=ansi --single-transaction --flush-logs zimbra > base_zimbra.sql
+
+$	/opt/zimbra/mysql/bin/mysqldump --user=root --password=$mysql_root_password --socket=$mysql_socket --compatible=ansi --single-transaction --flush-logs --databases $(mysql -u root --password=$mysql_root_password --socket=$mysql_socket -N information_schema -e "SELECT DISTINCT(TABLE_SCHEMA) FROM tables WHERE TABLE_SCHEMA LIKE 'mboxgroup%'") > bases_mboxgroup.sql
+
+5.   PARAR O MYSQL.
+
+$ mysql.server stop
+
+6.   EXPORTAR O VOLUME DO STORE (/mnt/zimbra_root) E INDÍCES (/opt/zimbra/index)
+
+NOS METADADOS O CAMINHO DO STORE ESTÁ REGISTRADO, PORTANTO, DEVE-SE ALTERAR O DUMP DO MYSQL OU ADEQUAR O DESTINO). - NECESSÁRIO EXECUTAR CHOWN SE O ID DO USUÁRIO ZIMBRA DO FOR DIFERENTE
+
+Para importar as caixas postais, os seguintes procedimentos devem ser seguidos:
+
+1. PARAR TODOS O SERVIÇOS DO ZIMBRA
+
+$ zmcontrol stop
+
+2. INICIAR LDAP PARA IMPORTAR DADOS
+
+$ ldap start
+
+3. IMPORTAR BASE LDAP NESTA ORDEM: COS, CONTAS, APELIDOS E LISTAS DE DISTRIBUIÇÃO
+
+$	zmlocalconfig -s zimbra_ldap_password
+
+$	ldapadd -c -x -H ldap://IP -D uid=zimbra,cn=admins,cn=zimbra -w SENHA -f COS.ldiff
+
+$	ldapadd -c -x -H ldap://IP -D uid=zimbra,cn=admins,cn=zimbra -w SENHA -f CONTAS.ldiff
+
+$	ldapadd -c -x -H ldap://IP -D uid=zimbra,cn=admins,cn=zimbra -w SENHA -f APELIDOS.ldiff
+
+$	ldapadd -c -x -H ldap://IP -D uid=zimbra,cn=admins,cn=zimbra -w SENHA -f LISTAS.ldiff
+
+4. PARAR TODOS OS SERVIÇOS DO ZIMBRA
+
+$ zmcontrol stop
+
+
+5. ALTERAR O IP DO SERVIDOR PARA O ENDEREÇO DE PRODUÇÃO
+
+6. VERIFICAR E AJUSTAR ARQUIVOS HOSTS E RESOLV.CONF
+
+7. DESLIGAR MÁQUINA
+
+8. ANEXAR VOLUME DO STORE
+
+9. INICIAR O SERVIDOR NOVO
+
+10. INICIAR O MYSQL PARA IMPORTAR OS METADADOS
+
+$ mysql.server start
+
+11. IMPORTAR DUMP DA BASE ZIMBRA E DOS MBOXGROUPS
+
+$	source ~/bin/zmshutil
+
+$	zmsetvars
+
+$	mysql --user=root -–password=$mysql_root_password zimbra < base_zimbra.sql
+
+$     mysql --user=root -–password=$mysql_root_password  < bases_mboxgroup.sql
+
+
+
+12. AINDA COM O ZIMBRA PARADO, PROMOVER O SCHEMA DA BASE DE CAIXAS POSTAIS DA VERSÃO 92 PARA A VERSÃO 103 (UTILIZADA PELA 8.6.0) COM OS COMANDOS ABAIXO:
+
+$	cd /opt/zimbra/libexec/scripts
+
+$	./migrate20130226_alwayson.pl 
+Mon Mar 16 21:36:58 2015: Verified schema version 92. 
+Mon Mar 16 21:37:00 2015: Verified schema version 92. 
+Mon Mar 16 21:37:00 2015: Updating DB schema version from 92 to 100. 
+
+
+$	./migrate20140319-MailItemPrevFolders.pl 
+Mon Mar 16 21:54:19 2015: Verified schema version 100. 
+Mon Mar 16 21:54:19 2015: Updating DB schema version from 100 to 101 
+
+(caso algum mailgroup tenha as colunas):
+mysql> ALTER TABLE mail_item DROP COLUMN prev_folders; 
+mysql> ALTER TABLE mail_item_dumpster DROP COLUMN prev_folders; 
+
+./migrate20140328-EnforceTableCharset.pl 
+Mon Mar 16 21:56:04 2015: Verified schema version 101. 
+
+Mon Mar 16 21:56:48 2015: Verified schema version 101. 
+Mon Mar 16 21:56:48 2015: Updating DB schema version from 101 to 102. 
+
+./migrate20140624-DropMysqlIndexes.pl 
+Mon Mar 16 21:57:23 2015: Verified schema version 102. 
+Mon Mar 16 21:57:52 2015: Verified schema version 102. 
+Mon Mar 16 21:57:52 2015: Updating DB schema version from 102 to 103.
+
+
+
+15.  PARAR O MYSQL
+
+	 16. MONTAR O DISCO
+
+        17. INICIAR TODOS OS SERVIÇOS DO ZIMBRA
+
+$ zmcontrol start
