@@ -8,7 +8,7 @@ for ACCOUNT in $USERS; do
 ACC1=`echo $ACCOUNT | awk -F@ '{print $1}'`;
 ACC=`echo $ACC1 | cut -d '.' -f1`;
 
-if [ $ACC == "admin" ] || [ $ACC == "wiki" ] || [ $ACC == "galsync" ] || [ $ACC == "ham" ] || [ $ACC == "spam" ]; then
+if [ $ACC == "admin" ] || [ $ACC == "wiki" ] || [ $ACC == "virus-quarantine" ] ||[ $ACC == "galsync" ] || [ $ACC == "ham" ] || [ $ACC == "spam" ]; then
 echo "Skipping system account, $NAME...";
 else
 echo "Modifying $ACCOUNT password...";
