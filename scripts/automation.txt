@@ -1,0 +1,22 @@
+#!/bin/bash
+#FABIO SOARES SCHMIDT - fabio_schmidt@hotmail.com
+
+echo "setting ldap variables"
+source ~/bin/zmshutil
+zmsetvars
+
+PARAMETER_NAME="zimbraAccountStatus"
+PARAMETER_VALUE="active"
+
+for i in `ldapsearch -x -H $ldap_master_url -D $zimbra_ldap_userdn -w $zimbra_ldap_password "(objectclass=zimbraAccount)" | grep -v 'cn=admins,cn=zimbra$\|cn=appaccts,cn=zimbra$' | grep uid=| cut -d : -f 2 | sed 's/^\ //g'`
+do
+
+ldapmodify -x -H $ldap_master_url -D $zimbra_ldap_userdn -w $zimbra_ldap_password << EOF
+dn: $i
+changetype: modify
+replace: $PARAMETER_NAME
+$PARAMETER_NAME: $PARAMETER_VALUE
+
+EOF
+
+done
