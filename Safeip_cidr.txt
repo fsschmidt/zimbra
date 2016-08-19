@@ -1,0 +1,9 @@
+misc - Problem parsing XML - Fatal Error: Problem on line 10 of document : The element type "hr" must be terminated by the matching end-tag "</hr>".
+
+
+ ldapmodify -x -H $ldap_master_url -D $zimbra_ldap_userdn -w $zimbra_ldap_password
+dn: cn=config,cn=zimbra
+changetype: modify
+replace: zimbraHttpThrottleSafeIPs
+zimbraHttpThrottleSafeIPs: x.x.x.x
+modifying entry "cn=config,cn=zimbra"
