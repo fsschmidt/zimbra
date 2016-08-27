@@ -3,5 +3,5 @@
 #OBTIDO COM zmprov gadl 
 for i in $(cat /tmp/lista.txt); do
 echo "Criando lista: $i"
-/opt/zimbra/bin/zmprov zmprov cdl $i
+/opt/zimbra/bin/zmprov  cdl $i
 done
