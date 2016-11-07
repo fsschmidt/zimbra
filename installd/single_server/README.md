@@ -4,4 +4,6 @@ Repositório para scripts "install.conf" para automatização da instalação do
 
 Exemplo: https://wiki.zimbra.com/wiki/Installing_Zimbra_Using_Chef
 
+Utilizando Zimbra 8.7.1
+
 
