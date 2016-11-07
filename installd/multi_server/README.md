@@ -2,6 +2,8 @@ Repositório criado por Fabio S. Schmidt
 
 Repositório para scripts "install.conf" de ambientes MULTI-SERVER para automatização da instalação do Zimbra.
 
+*Utilizando Zimbra 8.7.1*
+
 Exemplo: https://wiki.zimbra.com/wiki/Installing_Zimbra_Using_Chef
 
 ##############################################################################
