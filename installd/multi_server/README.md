@@ -1,5 +1,13 @@
 Repositório criado por Fabio S. Schmidt
 
+++++++++++++++++++++++++++++++++++++++++
+
+07/11/2016: Criação do repositório
+07/11/2016: Trabalho em andamento - "DRAFT"
+
+
+++++++++++++++++++++++++++++++++++++++++
+
 Repositório para scripts "install.conf" de ambientes MULTI-SERVER para automatização da instalação do Zimbra.
 
 *Utilizando Zimbra 8.7.1 NETWORK*
