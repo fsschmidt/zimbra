@@ -2,6 +2,13 @@ Repositório criado por Fabio S. Schmidt
 
 Repositório para scripts "install.conf" de ambientes MULTI-SERVER para automatização da instalação do Zimbra.
 
+Arquitetura:
+
+LDAP MMR:
+
+ldap1.dominio.local: primeiro ldap instalado - habilitado mmr
+ldap2.dominio.local: segundo ldap instalado - informado que será o segundo master
+
 Exemplo: https://wiki.zimbra.com/wiki/Installing_Zimbra_Using_Chef
 
 Referências:
