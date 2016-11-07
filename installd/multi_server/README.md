@@ -41,3 +41,4 @@ mta1.dominio.local: mta instalado - informado o ldap1 na instalação e posterio
 Referências:
 
 https://wiki.zimbra.com/wiki/LDAP_Multi_Master_Replication (ldap multi-master)
+https://wiki.zimbra.com/wiki/Configuring-Logger-Host (configurar logger)
