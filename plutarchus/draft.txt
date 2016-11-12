@@ -1,0 +1,16 @@
+LDAP:
+
+Contas
+COS
+Recursos
+Listas
+*Config*
+
+Contas:
+
+Zmmailbox
+
+
+- Autenticação externa
+- Autoprov
+- Gal
