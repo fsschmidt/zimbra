@@ -24,22 +24,22 @@ zmsetvars
 
 #EXPORTANDO CLASSES DE SERVICO
 echo "EXPORTANDO CLASSES DE SERVICO"
-ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(objectclass=zimbraCOS)" > $DEST/COS.ldiff
+ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(objectclass=zimbraCOS)" > $DEST/COS.ldif
 
 #EXPORTANDO CONTAS
 echo "EXPORTANDO CONTAS"
-ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(objectclass=zimbraAccount)" > $DEST/CONTAS.ldiff
+ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(objectclass=zimbraAccount)" > $DEST/CONTAS.ldif
 
 #EXPORTANDO NOMES ALTERNATIVOS
 echo "EXPORTANDO NOMES ALTERNATIVOS"
-ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password  -b '' -LLL "(objectclass=zimbraAlias)" uid | grep ^uid | awk '{print $2}' > $DEST/lista_contas.ldiff
+ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password  -b '' -LLL "(objectclass=zimbraAlias)" uid | grep ^uid | awk '{print $2}' > $DEST/lista_contas.ldif
 
-for MAIL in $(cat $DEST/lista_contas.ldiff);
+for MAIL in $(cat $DEST/lista_contas.ldif);
 	do 
       ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(&(uid=$MAIL)(objectclass=zimbraAlias))" > $DEST/alias/$MAIL.ldiff 
-	cat $DEST/alias/*.ldiff > $DEST/APELIDOS.ldiff
+	cat $DEST/alias/*.ldif > $DEST/APELIDOS.ldif
 done 
 
 #EXPORTANDO LISTAS DE DISTRIBUICAO
 echo "EXPORTANDO LISTAS DE DISTRIBUICAO"
-ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(objectclass=zimbraDistributionList)" > $DEST/LISTAS.ldiff
+ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(objectclass=zimbraDistributionList)" > $DEST/LISTAS.ldif
