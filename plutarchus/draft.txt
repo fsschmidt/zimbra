@@ -7,10 +7,12 @@ Listas
 *Config*
 
 Contas:
-
 Zmmailbox
+Opções somente ativas
+Excluir dominios
 
 
+- RESUMIIR FUNCIONALIDADES E LIMITAÇÕES
 - Autenticação externa
 - Autoprov
 - Gal
