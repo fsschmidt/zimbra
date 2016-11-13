@@ -36,7 +36,7 @@ ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_pa
 
 for MAIL in $(cat $DEST/lista_contas.ldif);
 	do 
-      ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(&(uid=$MAIL)(objectclass=zimbraAlias))" > $DEST/alias/$MAIL.ldiff 
+      ldapsearch -x -H ldap://$IP -D uid=zimbra,cn=admins,cn=zimbra -w $zimbra_ldap_password -b '' -LLL "(&(uid=$MAIL)(objectclass=zimbraAlias))" > $DEST/alias/$MAIL.ldif
 	cat $DEST/alias/*.ldif > $DEST/APELIDOS.ldif
 done 
 
