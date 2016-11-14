@@ -12,7 +12,7 @@ Opções somente ativas
 Excluir dominios
 
 
-- RESUMIIR FUNCIONALIDADES E LIMITAÇÕES
+- RESUMIR FUNCIONALIDADES E LIMITAÇÕES
 - Autenticação externa
 - Autoprov
 - Gal
