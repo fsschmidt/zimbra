@@ -1,6 +1,0 @@
-  #!/bin/bash
-  RELACAO_CAIXAS=`zmprov -l gaa | grep fabio`
-          for i in $( echo $RELACAO_CAIXAS ); do
-		              echo item: $i
-					  zmmailbox -z -m $i getRestURL "//?fmt=tgz" > /tmp/caixas/$i.tgz
-done
