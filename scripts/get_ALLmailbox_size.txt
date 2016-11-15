@@ -1,0 +1,8 @@
+#!/bin/bash
+#Referência: https://wiki.zimbra.com/wiki/Get_all_user%27s_mailbox_size_from_CLI
+all_accounts=`zmprov -l gaa`
+for account in $all_accounts
+    do
+      mbox_size=`zmmailbox -z -m $account gms`
+      echo "Mailbox size of $account = $mbox_size" >> ALLmailbox_size.txt
+done
