@@ -5,7 +5,7 @@ Este patch foi criado para auxiiliar no processo de conformidade do cliente WEB 
 
 ![alt tag](https://respirandolinux.files.wordpress.com/2016/11/zimbra-preferc3aancias-contas-google-chrome.jpg)
 
-Embora o cliente WEB do Zimbra restringa a alteração do E-mail de origem, inibindo que seja forjado o rementente, convém que o nome de exibição também seja protegido, inibindo assim completamente a possibilidade de forjar remetentes ou identidades ao enviar mensagens. Bloqueando a opção de definir um endereço de resposta diferente, também é inibida a ação de direcionar mensagens indevidamente.
+Embora o cliente WEB do Zimbra limite a alteração do E-mail de origem, inibindo que seja forjado o remetente, convém que o nome de exibição também seja protegido, inibindo assim completamente a possibilidade de forjar remetentes ou identidades ao enviar mensagens. Bloqueando a opção de definir um endereço de resposta diferente, também é inibida a ação de direcionar mensagens indevidamente.
 
 Limitações:
 
