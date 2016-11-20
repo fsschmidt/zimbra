@@ -12,3 +12,7 @@ Limitações:
 - Compatível somente com última versão do Zimbra (No momento: 8.7.1) - Funciona para ambas as edições (Open Source e Network);
 - Como o Javascript é alterado, a alteração é aplicada para todas as contas, não sendo possível aplicar exceções;
 - Necessário limpar o cache dos navegadores.
+
+Interface após aplicação do patch:
+
+![alt tag](https://respirandolinux.files.wordpress.com/2016/11/prtscr-capture.jpg)
