@@ -10,7 +10,7 @@ Embora o cliente WEB do Zimbra restringa a alteração do E-mail de origem, inib
 Limitações:
 
 - Compatível somente com última versão do Zimbra (No momento: 8.7.1) - Funciona para ambas as edições (Open Source e Network);
-- Como o Javascript é alterado, a alteração é aplicada para todas as contas, não sendo possível aplicar exceções;
+- Como o Javascript é modificado, a alteração é aplicada para todas as contas, não sendo possível aplicar exceções;
 - Necessário limpar o cache dos navegadores.
 
 Interface após aplicação do patch:
