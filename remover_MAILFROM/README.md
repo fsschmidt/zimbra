@@ -23,3 +23,24 @@ Convém que a política aplicada com este PATCH seja combinada com outras açõe
 ![alt tag](https://respirandolinux.files.wordpress.com/2016/11/console-de-administrac3a7c3a3o-do-zimbra-gerenciar-contas-google-chrome.jpg)
 
 # Aplicando o PATCH
+(Extrair os arquivos deste patch em /tmp)
+
+su - zimbra
+
+cd /opt/zimbra/jetty/webapps/zimbra/js
+
+md5sum PreferencesCore_all.js >  /tmp/PreferencesCore_all.md5
+
+md5sum PreferencesCore_all.js.zgz >  /tmp/PreferencesCore_all_zgz.md5
+
+(Prosseguir se as validaçãos dos MD5 forem positivas)
+
+gunzip -S zgz PreferencesCore_all.js.zgz
+
+patch -p0 PreferencesCore_all.js. < /tmp/remover_MAILFROM_JS.patch
+
+patch -p0 PreferencesCore_all.js < /tmp/remover_MAILFROM.patch
+
+gzip -S zgz PreferencesCore_all.js.
+
+(Não é necessário reiniciar nenhum servidor do Zimbra)
