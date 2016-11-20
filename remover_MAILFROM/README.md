@@ -16,3 +16,8 @@ Limitações:
 Interface após aplicação do patch:
 
 ![alt tag](https://respirandolinux.files.wordpress.com/2016/11/prtscr-capture.jpg)
+
+
+Convém que a política aplicada com este PATCH seja combinada com outras ações, como inibir o acesso à contas externas, personagens e definir um endereço de encaminhamento:
+
+![alt tag](https://respirandolinux.files.wordpress.com/2016/11/console-de-administrac3a7c3a3o-do-zimbra-gerenciar-contas-google-chrome.jpg)
