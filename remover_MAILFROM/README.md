@@ -1,7 +1,9 @@
 # Criado por Fabio Soares Schmidt <fabio@respirandolinux.com.br>
 # Site: https://respirandolinux.com.br
 
-Este patch foi criado para auxiiliar no processo de conformidade do cliente WEB Zimbra com políticas de segurança da informação, desabilitando as opções que permitem alterar o nome de exibição (MAIL FROM) e definir um endereço de resposta diferente (REPLY TO) no envio das mensagens.
+Este patch foi criado para auxiiliar no processo de conformidade do cliente WEB Zimbra com políticas de segurança da informação, desabilitando as opções que permitem alterar o nome de exibição (MAIL FROM) e definir um endereço de resposta diferente (REPLY TO) no envio das mensagens:
+
+![alt tag](https://respirandolinux.files.wordpress.com/2016/11/zimbra-preferc3aancias-contas-google-chrome.jpg)
 
 Embora o cliente WEB do Zimbra restringa a alteração do E-mail de origem, inibindo que seja forjado o rementente, convém que o nome de exibição também seja protegido, inibindo assim completamente a possibilidade de forjar remetentes ou identidades ao enviar mensagens. Bloqueando a opção de definir um endereço de resposta diferente, também é inibida a ação de direcionar mensagens indevidamente.
 
