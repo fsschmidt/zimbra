@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXPORTAR TABELA ZIMBRA E TABELAS MBOXGROUP
-#FABIO S. SCHMIDT - fabio.schmidt@4linux.com.br - 02/04/2015
+#FABIO S. SCHMIDT - fabio@respirandolinux.com.br - 02/04/2015
 #TODO:
 
 DEST="/tmp"
