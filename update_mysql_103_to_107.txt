@@ -1,0 +1,9 @@
+#!/bin/bash
+# SOMENTE MYSQL INICIADO
+# ZIMBRA 8.6.0 para 8.7.1 
+
+cd /opt/zimbra/libexec
+./migrate20150401-ZmgDevices.pl
+./migrate20150515-DataSourcePurgeTables.pl
+./migrate20150623-ZmgDevices.pl
+./migrate20150702-ZmgDevices.pl
