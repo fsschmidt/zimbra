@@ -37,6 +37,7 @@ test_exec()
 ####
 
     $INFO_TEXT "Procurando mensagens com o assunto $2 na caixa postal $1"
+    $INFO_TEXT "Atencao: Por limitacao do zmmailbox, somente 1000 resultados sao retornados por consulta"
     /opt/zimbra/bin/zmmailbox -z -m "$1" s -l 1000 -t message "subject:$2"|awk '{ if (NR!=1) {print}}' | grep -v -e Id -e "-" -e "^$"
      #Executa funcao para confirmar a exclusao das mensagens encontradas
       test_exec
