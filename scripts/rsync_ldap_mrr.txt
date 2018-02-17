@@ -1,0 +1,7 @@
+rm -f /opt/zimbra/data/ldap/accesslog/db/* while slapd is offline.
+
+ldapmodify -x -H ldapi:/// -D cn=config -w `zmlocalconfig -s -m nokey ldap_root_password`
+dn: cn=admins,cn=zimbra
+changetype: modify
+replace: description
+description: admin accounts
