@@ -1,0 +1,14 @@
+[Unit]
+Description=SSDB server daemon
+After=syslog.target network.target
+
+
+[Service]
+Type=forking
+PIDFile=/usr/local/ssdb/var/ssdb.pid
+ExecStart=/usr/local/ssdb/ssdb-server /usr/local/ssdb/ssdb.conf -s restart -d
+ExecStop=/usr/local/ssdb/ssdb-server /usr/local/ssdb/ssdb.conf -s stop -d
+
+
+[Install]
+WantedBy=multi-user.target
