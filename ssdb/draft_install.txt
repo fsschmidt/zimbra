@@ -1,0 +1,19 @@
+yum groupinstall 'Development Tools'
+wget https://github.com/ideawu/ssdb/archive/stable-1.9.5.zip
+ unzip stable-1.9.5.zip
+ cd ssdb-stable-1.9.5/
+
+make
+make install
+vim ssdb.conf
+./ssdb-server -d ssdb.conf
+
+
+
+
+
+/opt/zimbra/bin/zmmigrateattrs -r ssdb:server:8888
+
+/opt/zimbra/bin/zmmigrateattrs ssdb:server:8888
+
+zmprov mcf zimbraEphemeralBackendURL ssdb:server:8888
