@@ -8,6 +8,8 @@ make install
 vim ssdb.conf
 ./ssdb-server -d ssdb.conf
 
+useradd -s /sbin/nologin -d /usr/local/ssdb ssdb
+
 
 
 
