@@ -1,0 +1,3 @@
+zmprov getMailboxInfo fabio@respirandolinux.com.br
+mysql mboxgroup18
+select * from mail_item where mailbox_id=18 limit 1 \G
