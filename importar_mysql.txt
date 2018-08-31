@@ -7,4 +7,4 @@ source ~/bin/zmshutil
 zmsetvars
 
 mysql --user=root --password=$mysql_root_password zimbra < base_zimbra.sql
-mysql --user=root --password=$mysql_root_password < bases_mboxgroup.sql
+mysql --user=root --password=$mysql_root_password zimbra < bases_mboxgroup.sql
