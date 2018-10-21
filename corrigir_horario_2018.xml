@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <tzfixup>
+      <fixupRule>
+	        <match>
+			        <tzid id="America/Sao_Paulo"/>
+					        <rules stdoff="-300" dayoff="-200">
+							          <standard mon="2" week="3" wkday="1"/>
+									            <daylight mon="10" week="3" wkday="1"/>
+												        </rules>
+														      </match>
+															        <replace>
+																	        <tz id="America/Sao_Paulo" stdoff="-300" dayoff="-200">
+																			          <standard mon="2" week="3" wkday="1" hour="0" min="0" sec="0"/>
+																					            <daylight mon="11" week="1" wkday="1" hour="0" min="0" sec="0"/>
+																								        </tz>
+																										      </replace>
+																											      </fixupRule>
+																												    </tzfixup>
