@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# SEPARAR ENTRADA POR QUEBRA DE LINHA
+IFS=$'\n'
+
+cont1=0
+cont2=0
+
+# RELACAO DAS CONTAS PARA AJUSTE DOS FILTROS
+for i in $(cat /tmp/contas.txt); do
+
+# BUSCANDO FILTROS SEM "KEEP" - ENCAMINHAR E MANTER
+zmmailbox -z -m $i gfrl | grep redirect | grep -v keep > /tmp/relacao_filtros.txt
+cont1=$((cont1+1))
+echo "####### $cont1 $i"
+cont2=0
+for j in $(cat /tmp/relacao_filtros.txt); do
+cont2=$((cont2+1))
+echo -n "$cont2"
+
+# GERA O SCRIPT_AJUSTE_FILTROS.SH QUE DEVE SER EXECUTADO PARA AJUSTAR OS FILTROS
+# MODIFICACAO INCLUINDO A ACAO PARA PRESERVAR NA CAIXA ORIGINAL
+echo "zmmailbox -z -m $i mfrl $j keep" >> /tmp/script_filtros.tmp
+done
+echo " "
+done
+
+#EFETUA A CORRECAO DOS ENCAMINHAMENTOS COM DISPLAY NAME PARA E-MAIL
+sed -f replace_display_email_sed.txt < script_filtros.tmp > script_filtros.sh
+
+#PERMISSAO PARA EXECUCAO DO SCRIPT GERADO
+chmod u+x script_filtros.sh
+echo "Gerado o script "script_filtros.sh" para corrigir os filtros de encaminhamento"
