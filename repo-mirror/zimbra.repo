@@ -1,0 +1,15 @@
+[zimbra]
+name=Zimbra RPM Repository
+baseurl=http://host.dominio.com.br/repository/zimbra/rpm/87/rhel\$releasever
+gpgcheck=1
+enabled=1
+[zimbra-8811-oss]
+name=Zimbra New RPM Repository
+baseurl=http://host.dominio.com.br/repository/zimbra/rpm/8811/rhel\$releasever
+gpgcheck=1
+enabled=1
+[zimbra-8811-ne]
+name=Zimbra New NE RPM Repository
+baseurl=http://host.dominio.com.br/repository/zimbra/rpm/8811-ne/rhel\$releasever
+gpgcheck=1
+enabled=1
