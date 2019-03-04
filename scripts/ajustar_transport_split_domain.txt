@@ -1,0 +1,12 @@
+#!/bin/bash
+for CONTA in `cat contas.txt`
+do
+ TRANSPORT=`zmprov ga $CONTA zimbraMailTransport | cut -d ":" -f 3  |grep -v ^#`
+ MAILHOST=`zmprov ga $CONTA zimbraMailHost | cut -d: -f 2 | grep -v ^# | tr -d '[:space:]'`
+
+ if [ $TRANSPORT != $MAILHOST ]
+ then
+ echo "ma $CONTA zimbraMailTransport lmtp:$MAILHOST:7025"
+ fi
+
+done
