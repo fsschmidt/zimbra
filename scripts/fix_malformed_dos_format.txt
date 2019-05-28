@@ -1,0 +1,3 @@
+cd /opt/zimbra/conf/nginx/templates
+sed -i 's/$proxy_add_x_forwarded_for/$http_x_forwarded_for/g' *
+zmproxyctl restart
